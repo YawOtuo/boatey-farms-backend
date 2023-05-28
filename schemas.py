@@ -19,18 +19,23 @@ class Item(ItemBase):
         orm_mode = True
 
 
-class UserBase(BaseModel):
-    email: str
+class RecordBase(BaseModel):
+    id: int
 
 
-class UserCreate(UserBase):
+class RecordCreate(RecordBase):
     password: str
 
 
-class User(UserBase):
-    id: int
-    is_active: bool
-    items: list[Item] = []
+class Record(RecordBase):
+    name: str | None = None
+    type: str | None = None
+    tag_colour: str | None = None
+    number_of_kids: int | None = None
+    colour: str | None = None
+    castrated: bool | None = None
+    health_condition: str | None = None
+    remarks: str | None = None
 
     class Config:
         orm_mode = True
