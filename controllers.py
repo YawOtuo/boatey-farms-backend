@@ -14,6 +14,18 @@ def get_user_by_email(db: Session, email: str):
 def get_records(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Record).offset(skip).limit(limit).all()
 
+def getAllSheep(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Record).filter(models.Record.type == 'sheep').offset(skip).limit(limit).all()
+
+def getAllGoats(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Record).filter(models.Record.type == 'goat').offset(skip).limit(limit).all()
+
+def getAllCattle(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Record).filter(models.Record.type == 'cattle').offset(skip).limit(limit).all()
+
+
+def getOneRecord(db: Session, record_id: int, skip: int = 0, limit: int = 100):
+    return db.query(models.Record).filter(models.Record.id == record_id).offset(skip).limit(limit).first()
 
 def create_user(db: Session, user: schemas.RecordCreate):
     fake_hashed_password = user.password + "notreallyhashed"

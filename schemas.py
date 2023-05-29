@@ -20,11 +20,11 @@ class Item(ItemBase):
 
 
 class RecordBase(BaseModel):
-    id: int
+    id: int 
 
 
 class RecordCreate(RecordBase):
-    password: str
+    password: str  
 
 
 class Record(RecordBase):
