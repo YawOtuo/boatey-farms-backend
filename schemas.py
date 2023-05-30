@@ -20,14 +20,6 @@ class Item(ItemBase):
 
 
 class RecordBase(BaseModel):
-    id: int 
-
-
-class RecordCreate(RecordBase):
-    password: str  
-
-
-class Record(RecordBase):
     name: str | None = None
     type: str | None = None
     tag_colour: str | None = None
@@ -39,3 +31,12 @@ class Record(RecordBase):
 
     class Config:
         orm_mode = True
+
+class Record(RecordBase):
+    id: int 
+
+class RecordCreate(BaseModel):
+    name: str 
+
+class RecordUpdate(RecordBase):
+    id : int

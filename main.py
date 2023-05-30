@@ -28,12 +28,19 @@ def get_db():
         db.close()
 
 
-@app.post("/Records/", response_model=schemas.Record)
-def create_Record(Record: schemas.RecordCreate, db: Session = Depends(get_db)):
-    db_Record = controllers.get_Record_by_email(db, email=Record.email)
-    if db_Record:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    return controllers.create_Record(db=db, Record=Record)
+@app.post("/records/")
+def createRecord(record: schemas.RecordCreate, db: Session = Depends(get_db)):
+    dbRecord = controllers.createRecord(db, record=record)
+    if dbRecord:
+        return dbRecord
+
+
+@app.post("/records/{record_id}")
+def updateRecord(record_id: int,
+                 record: schemas.RecordBase, db: Session = Depends(get_db)):
+    dbRecord = controllers.updateRecord(db, record_id=record_id, record=record)
+    if dbRecord:
+        return dbRecord
 
 @app.get('/')
 def index():
@@ -63,10 +70,10 @@ def getAllCattle(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
 
 @app.get("/records/{record_id}", response_model=schemas.Record)
 def read_Record(record_id: int, db: Session = Depends(get_db)):
-    db_record = controllers.getOneRecord(db, record_id=record_id)
-    if db_record is None:
+    dbRecord = controllers.getOneRecord(db, record_id=record_id)
+    if dbRecord is None:
         raise HTTPException(status_code=404, detail="Record not found")
-    return db_record
+    return dbRecord
 
 
 # @app.post("/Records/{Record_id}/items/", response_model=schemas.Item)

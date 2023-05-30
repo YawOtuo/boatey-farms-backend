@@ -23,26 +23,50 @@ def getAllGoats(db: Session, skip: int = 0, limit: int = 100):
 def getAllCattle(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Record).filter(models.Record.type == 'cattle').offset(skip).limit(limit).all()
 
-
 def getOneRecord(db: Session, record_id: int, skip: int = 0, limit: int = 100):
     return db.query(models.Record).filter(models.Record.id == record_id).offset(skip).limit(limit).first()
 
-def create_user(db: Session, user: schemas.RecordCreate):
-    fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(email=user.email, hashed_password=fake_hashed_password)
-    db.add(db_user)
+def createRecord(db: Session, record: schemas.RecordCreate):
+    # fake_hashed_password = user.password + "notreallyhashed"
+    db_record = models.Record(
+        name = record.name,
+        type = record.type,
+        tag_colour = record.tag_colour,
+        number_of_kids = record.number_of_kids,
+        colour = record.colour,
+        castrated = record.castrated,
+        health_condition = record.health_condition,
+        remarks = record.remarks
+                )
+    db.add(db_record)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_record)
+    return "SUCCESSFULLY CREATED RECORD OF " + record.name
+
+def updateRecord(db: Session, record_id : int, record: schemas.RecordUpdate):
+
+    dbRecord = db.query(models.Record).get(record_id)
+    if dbRecord:
+        # Update the record with the new values
+        update_data = {k: v for k, v in record.dict().items() if v is not None}
+        print(update_data)
+        db.query(models.Record).filter(models.Record.id == record_id).update(update_data)
+        db.commit()
+        db.refresh(dbRecord)
+        return {"message": f"Item {record_id} has been updated"}
+    else:
+        return {"message": f"Item {record_id} not found"}
+
+
 
 
 def get_items(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Item).offset(skip).limit(limit).all()
 
 
-def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
-    db_item = models.Item(**item.dict(), owner_id=user_id)
-    db.add(db_item)
+def create_user_item(db: Session, record: schemas.ItemCreate, user_id: int):
+    record = models.Item(**record.dict(), owner_id=user_id)
+    db.add(record)
     db.commit()
-    db.refresh(db_item)
-    return db_item
+    db.refresh(record)
+    return record
