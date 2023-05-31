@@ -35,7 +35,7 @@ class RecordBase(BaseModel):
 class Record(RecordBase):
     id: int 
 
-class RecordCreate(BaseModel):
+class RecordCreate(RecordBase):
     name: str 
 
 class RecordUpdate(RecordBase):

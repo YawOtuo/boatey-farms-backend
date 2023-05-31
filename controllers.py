@@ -18,7 +18,7 @@ def getAllSheep(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Record).filter(models.Record.type == 'sheep').offset(skip).limit(limit).all()
 
 def getAllGoats(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Record).filter(models.Record.type == 'goat').offset(skip).limit(limit).all()
+    return db.query(models.Record).filter(models.Record.type == 'goats').offset(skip).limit(limit).all()
 
 def getAllCattle(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Record).filter(models.Record.type == 'cattle').offset(skip).limit(limit).all()
