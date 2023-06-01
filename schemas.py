@@ -33,7 +33,7 @@ class RecordBase(BaseModel):
         orm_mode = True
 
 class Record(RecordBase):
-    id: int 
+    id: int
 
 class RecordCreate(RecordBase):
     name: str 

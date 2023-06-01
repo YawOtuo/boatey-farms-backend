@@ -57,6 +57,15 @@ def updateRecord(db: Session, record_id : int, record: schemas.RecordUpdate):
     else:
         return {"message": f"Item {record_id} not found"}
 
+def getNumberOfCattle(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Record).filter(models.Record.type == 'cattle').count()
+
+def getNumberOfGoats(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Record).filter(models.Record.type == 'goats').count()
+
+def getNumberOfSheep(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Record).filter(models.Record.type == 'sheep').count()
+
 
 
 
@@ -64,9 +73,3 @@ def get_items(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Item).offset(skip).limit(limit).all()
 
 
-def create_user_item(db: Session, record: schemas.ItemCreate, user_id: int):
-    record = models.Item(**record.dict(), owner_id=user_id)
-    db.add(record)
-    db.commit()
-    db.refresh(record)
-    return record

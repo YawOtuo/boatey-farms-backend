@@ -76,6 +76,23 @@ def read_Record(record_id: int, db: Session = Depends(get_db)):
     return dbRecord
 
 
+@app.get("/records/cattle/count", response_model=int)
+def getNumberofCattle(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    number = controllers.getNumberOfCattle(db, skip=skip, limit=limit)
+    return number
+
+
+@app.get("/records/goats/count", response_model=int)
+def getNumberOfGoats(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    records = controllers.getNumberOfGoats(db, skip=skip, limit=limit)
+    return records
+
+@app.get("/records/sheep/count", response_model=int)
+def getNumberOfSheep(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    records = controllers.getNumberOfSheep(db, skip=skip, limit=limit)
+    return records
+
+
 # @app.post("/Records/{Record_id}/items/", response_model=schemas.Item)
 # def create_item_for_Record(
 #     Record_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
