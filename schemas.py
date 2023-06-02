@@ -21,7 +21,10 @@ class Item(ItemBase):
 
 class RecordBase(BaseModel):
     name: str | None = None
+    sire: int | None = None
+    dam: int | None = None
     type: str | None = None
+    gender: str | None = None
     tag_colour: str | None = None
     number_of_kids: int | None = None
     colour: str | None = None

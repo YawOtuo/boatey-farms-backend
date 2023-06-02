@@ -24,8 +24,11 @@ def getAllCattle(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Record).filter(models.Record.type == 'cattle').offset(skip).limit(limit).all()
 
 def getOneRecord(db: Session, record_id: int, skip: int = 0, limit: int = 100):
-    return db.query(models.Record).filter(models.Record.id == record_id).offset(skip).limit(limit).first()
-
+    record =  db.query(models.Record).filter(models.Record.id == record_id).offset(skip).limit(limit).first()
+    # print(record.sire)
+    # print(record.dam_children.id)
+    # print(record.s_parent)
+    return record
 def createRecord(db: Session, record: schemas.RecordCreate):
     # fake_hashed_password = user.password + "notreallyhashed"
     db_record = models.Record(
