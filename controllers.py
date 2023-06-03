@@ -1,4 +1,6 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
+
 
 import models, schemas
 
@@ -69,6 +71,15 @@ def getNumberOfGoats(db: Session, skip: int = 0, limit: int = 100):
 def getNumberOfSheep(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Record).filter(models.Record.type == 'sheep').count()
 
+def searchforRecord(db: Session, record_type: str, query: str,skip: int = 0, limit: int = 100):
+    print(query)
+    result =  db.query(models.Record).filter(
+     models.Record.name.ilike(f"%{query}%") &  models.Record.type.ilike(f"%{record_type}%") ).all()
+    if result: 
+        print(result)
+        return result
+    else:
+        raise HTTPException(status_code=404, detail="No result found")
 
 
 

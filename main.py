@@ -92,6 +92,11 @@ def getNumberOfSheep(skip: int = 0, limit: int = 100, db: Session = Depends(get_
     records = controllers.getNumberOfSheep(db, skip=skip, limit=limit)
     return records
 
+@app.post('/records/{record_type}/search', response_model=list[schemas.Record])
+def searchforRecord(search_request: schemas.SearchRequest, 
+                    record_type: str, db: Session = Depends(get_db)):
+    result = controllers.searchforRecord(db, query=search_request.query, record_type=record_type)
+    return result
 
 # @app.post("/Records/{Record_id}/items/", response_model=schemas.Item)
 # def create_item_for_Record(

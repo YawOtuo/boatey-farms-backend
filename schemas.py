@@ -36,10 +36,13 @@ class RecordBase(BaseModel):
         orm_mode = True
 
 class Record(RecordBase):
-    id: int
+    id: int | None = None
 
 class RecordCreate(RecordBase):
     name: str 
 
 class RecordUpdate(RecordBase):
-    id : int
+    id : int 
+
+class SearchRequest(BaseModel):
+    query: str
