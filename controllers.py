@@ -71,10 +71,16 @@ def getNumberOfGoats(db: Session, skip: int = 0, limit: int = 100):
 def getNumberOfSheep(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Record).filter(models.Record.type == 'sheep').count()
 
-def searchforRecord(db: Session, record_type: str, query: str,skip: int = 0, limit: int = 100):
+def searchforRecord(db: Session, record_type: str, query: str ,skip: int = 0, limit: int = 100):
     print(query)
-    result =  db.query(models.Record).filter(
-     models.Record.name.ilike(f"%{query}%") &  models.Record.type.ilike(f"%{record_type}%") ).all()
+    
+    if record_type == 'any':
+        result =  db.query(models.Record).filter(
+        models.Record.name.ilike(f"%{query}%")).all()
+    else: 
+        result =  db.query(models.Record).filter(
+        models.Record.name.ilike(f"%{query}%") &  models.Record.type.ilike(f"%{record_type}%") ).all()
+   
     if result: 
         print(result)
         return result
