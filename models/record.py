@@ -26,7 +26,7 @@ class Record(Base):
 
     #--------------------
     #--------------------
-
+    weight = Column(Integer)
     castrated = Column(Boolean, default=False)
     health_condition = Column(String(255))
     remarks = Column(String(255))

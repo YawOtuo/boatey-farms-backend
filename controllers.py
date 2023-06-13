@@ -39,6 +39,8 @@ def createRecord(db: Session, record: schemas.RecordCreate):
         tag_colour = record.tag_colour,
         sire = record.sire,
         dam = record.dam,
+        weight = record.weight,
+        # date of birth = record.date_of_birth,
         number_of_kids = record.number_of_kids,
         colour = record.colour,
         castrated = record.castrated,

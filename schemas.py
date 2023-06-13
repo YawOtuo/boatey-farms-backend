@@ -26,6 +26,7 @@ class RecordBase(BaseModel):
     type: str | None = None
     gender: str | None = None
     tag_colour: str | None = None
+    weight: int | None = None
     number_of_kids: int | None = None
     colour: str | None = None
     castrated: bool | None = None
