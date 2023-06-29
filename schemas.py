@@ -1,5 +1,6 @@
 
 from pydantic import BaseModel
+from datetime import date
 
 
 class ItemBase(BaseModel):
@@ -26,11 +27,16 @@ class RecordBase(BaseModel):
     type: str | None = None
     gender: str | None = None
     tag_colour: str | None = None
+    date_of_birth: date | None = None
+    date_purchased: date | None = None
     weight: int | None = None
     number_of_kids: int | None = None
     colour: str | None = None
     castrated: bool | None = None
+    alive: bool | None = None
+    sold: bool | None = None
     health_condition: str | None = None
+    vaccination_info: str | None = None
     remarks: str | None = None
 
     class Config:

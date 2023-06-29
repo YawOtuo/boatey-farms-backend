@@ -40,12 +40,12 @@ def createRecord(db: Session, record: schemas.RecordCreate):
         sire = record.sire,
         dam = record.dam,
         weight = record.weight,
-        # date of birth = record.date_of_birth,
         number_of_kids = record.number_of_kids,
         colour = record.colour,
         castrated = record.castrated,
         health_condition = record.health_condition,
-        remarks = record.remarks
+        remarks = record.remarks,
+        date_of_birth = record.date_of_birth,        
                 )
     db.add(db_record)
     db.commit()
