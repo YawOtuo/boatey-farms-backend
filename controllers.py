@@ -27,9 +27,8 @@ def getAllCattle(db: Session, skip: int = 0, limit: int = 100):
 
 def getOneRecord(db: Session, record_id: int, skip: int = 0, limit: int = 100):
     record =  db.query(models.Record).filter(models.Record.id == record_id).offset(skip).limit(limit).first()
-    # print(record.sire)
-    # print(record.dam_children.id)
-    # print(record.s_parent)
+
+
     return record
 def createRecord(db: Session, record: schemas.RecordCreate):
     # fake_hashed_password = user.password + "notreallyhashed"
@@ -97,3 +96,11 @@ def get_items(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Item).offset(skip).limit(limit).all()
 
 
+def deleteRecord(db: Session, record_id: int):
+    record =  db.query(models.Record).get(record_id)
+    if record:
+        db.delete(record)
+        db.commit()
+        return "Record deleted successfully"
+    else:
+        return HTTPException(status_code=404, detail="Cannot find record to delete")

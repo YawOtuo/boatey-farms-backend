@@ -98,6 +98,13 @@ def searchforRecord(search_request: schemas.SearchRequest,
     result = controllers.searchforRecord(db, query=search_request.query, record_type=record_type)
     return result
 
+
+@app.delete('/records/{record_id}', response_model=str)
+def deleteRecord( record_id: int, db: Session = Depends(get_db)):
+    result = controllers.deleteRecord(db, record_id)
+    return result
+
+
 # @app.post("/Records/{Record_id}/items/", response_model=schemas.Item)
 # def create_item_for_Record(
 #     Record_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
